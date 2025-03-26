@@ -1,0 +1,208 @@
+<!-- sections/bloom-inspired-cards.liquid -->
+<section class="flip-card-wrapper">
+  {% for block in section.blocks %}
+    <div class="flip-card">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          {% if block.settings.image %}
+            <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.title }}">
+          {% endif %}
+        </div>
+        <div class="flip-card-back">
+          <h2>{{ block.settings.title }}</h2>
+          <p>{{ block.settings.subtitle }}</p>
+          <div class="flip-card-steps">
+            {% if block.settings.step1 != blank %}
+              <p><strong>Step 1:</strong> {{ block.settings.step1 }}</p>
+            {% endif %}
+            {% if block.settings.step2 != blank %}
+              <p><strong>Step 2:</strong> {{ block.settings.step2 }}</p>
+            {% endif %}
+            {% if block.settings.step3 != blank %}
+              <p><strong>Step 3:</strong> {{ block.settings.step3 }}</p>
+            {% endif %}
+            {% if block.settings.step4 != blank %}
+              <p><strong>Step 4:</strong> {{ block.settings.step4 }}</p>
+            {% endif %}
+            {% if block.settings.step5 != blank %}
+              <p><strong>Step 5:</strong> {{ block.settings.step5 }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</section>
+
+<style>
+.flip-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 40px 20px;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 280px;
+  height: 420px;
+  perspective: 1000px;
+  border-radius: 100px 100px 20px 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px 100px 20px 20px;
+  backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.flip-card-back {
+  background: #fff6e5;
+  transform: rotateY(180deg);
+  padding: 20px;
+  text-align: center;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.flip-card-back h2 {
+  margin-bottom: 4px;
+  font-size: 20px;
+  color: #2e2e2e;
+}
+
+.flip-card-back p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+</style>
+
+
+{% schema %}
+{
+  "name": "Bloom Inspired Cards",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "flip_card",
+      "name": "Flip Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Breezy Blooms"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Light, floral, & airy"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "step1",
+          "label": "Step 1",
+          "default": "Neutral Couch as base"
+        },
+        {
+          "type": "text",
+          "id": "step2",
+          "label": "Step 2",
+          "default": "Style a throw for texture"
+        },
+        {
+          "type": "text",
+          "id": "step3",
+          "label": "Step 3",
+          "default": "Add a mix of cushions"
+        },
+        {
+          "type": "text",
+          "id": "step4",
+          "label": "Step 4",
+          "default": "Place Candles & Vase on tray"
+        },
+        {
+          "type": "text",
+          "id": "step5",
+          "label": "Step 5",
+          "default": "Add Fresh florals on the side"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Bloom Flip Cards",
+      "category": "Custom Sections",
+      "blocks": [
+        {
+          "type": "flip_card",
+          "settings": {
+            "title": "Breezy Blooms",
+            "subtitle": "Light, floral, & airy"
+          }
+        },
+        {
+          "type": "flip_card",
+          "settings": {
+            "title": "Pretty in Pink",
+            "subtitle": "Pinterest dining made easy"
+          }
+        },
+        {
+          "type": "flip_card",
+          "settings": {
+            "title": "Golden Hour Glow",
+            "subtitle": "Warm yellows & soft textures"
+          }
+        },
+        {
+          "type": "flip_card",
+          "settings": {
+            "title": "Pastel Harmony",
+            "subtitle": "Soft hues & dreamy vibes"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

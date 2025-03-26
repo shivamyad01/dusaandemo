@@ -1,0 +1,97 @@
+{% schema %}
+{
+  "name": "Image Slider",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Slide Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Upload Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Image Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image Slider",
+      "category": "Custom",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="image-slider">
+  <div class="slider-container">
+    {% for block in section.blocks %}
+      <div class="slider-item">
+        <a href="{{ block.settings.link | default: '#' }}">
+          {% if block.settings.image != blank %}
+            <img src="{{ block.settings.image | img_url: '1000x600' }}" alt="Slide Image">
+          {% endif %}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+.image-slider {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+.slider-container {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+  scrollbar-width: none; /* Hide scrollbar on Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar on IE */
+}
+.slider-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar on Webkit browsers */
+}
+.slider-item {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 400px; /* Adjust based on image size */
+  scroll-snap-align: start;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.slider-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const slider = document.querySelector(".slider-container");
+  
+  slider.addEventListener("wheel", (evt) => {
+    evt.preventDefault();
+    slider.scrollLeft += evt.deltaY;
+  }, { passive: false });
+});
+</script>

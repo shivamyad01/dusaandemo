@@ -1,0 +1,171 @@
+{% schema %}
+{
+  "name": "Browse By Departments",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Browse By Departments"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find what fits best for you"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Department Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon/Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Department Name",
+          "default": "Example Department"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Browse By Departments",
+      "category": "Custom",
+      "blocks": [
+        { "type": "collection", "settings": { "title": "V-Day Special" }},
+        { "type": "collection", "settings": { "title": "Furnishings" }},
+        { "type": "collection", "settings": { "title": "Kitchen" }},
+        { "type": "collection", "settings": { "title": "Dining" }},
+        { "type": "collection", "settings": { "title": "Decor" }},
+        { "type": "collection", "settings": { "title": "Indoor Garden" }},
+        { "type": "collection", "settings": { "title": "Fragrance" }},
+        { "type": "collection", "settings": { "title": "Storage" }},
+        { "type": "collection", "settings": { "title": "Bath" }},
+        { "type": "collection", "settings": { "title": "Kids" }},
+        { "type": "collection", "settings": { "title": "Furniture" }},
+        { "type": "collection", "settings": { "title": "Devotion" }}
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="departments-section">
+  <h2>{{ section.settings.heading }}</h2>
+  <p>{{ section.settings.subheading }}</p>
+  <div class="departments-grid">
+    {% if section.blocks.size > 0 %}
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link | default: '#' }}" class="department-card">
+          {% if block.settings.icon != blank %}
+            <img src="{{ block.settings.icon | img_url: '150x150' }}" alt="{{ block.settings.title }}">
+          {% endif %}
+          <span>{{ block.settings.title }}</span>
+        </a>
+      {% endfor %}
+    {% else %}
+      {% assign default_departments = "V-Day Special,Furnishings,Kitchen,Dining,Decor,Indoor Garden,Fragrance,Storage,Bath,Kids,Furniture,Devotion" | split: "," %}
+      {% for department in default_departments %}
+        <a href="#" class="department-card">
+          <span>{{ department }}</span>
+        </a>
+      {% endfor %}
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.departments-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.departments-section h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.departments-section p {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 28px;
+}
+
+.departments-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 160px);
+  gap: 20px 30px;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.department-card {
+  background: #fffdf2;
+  padding: 24px 12px;
+  border-radius: 18px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #3d3d3d;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 0 transparent;
+  height: 140px;
+  cursor: pointer;
+}
+
+.department-card img {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 12px;
+}
+
+.department-card span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #3b3b3b;
+}
+
+.department-card:hover {
+  background: #fff7e5;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .departments-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+  }
+
+  .department-card {
+    height: auto;
+    padding: 20px 12px;
+  }
+
+  .department-card img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .department-card span {
+    font-size: 13px;
+  }
+}
+</style>
+

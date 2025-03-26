@@ -1,0 +1,74 @@
+<style>
+.accordian-tab {
+  border-bottom: 1px solid #ddd;
+  padding: 15px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.accordian-tab h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.accordian-content {
+  display: none;
+  padding: 10px 0;
+  color: #555;
+}
+
+.accordian-tab.active + .accordian-content {
+  display: block;
+}
+
+.accordian-icon {
+  font-size: 20px;
+  transition: transform 0.3s ease;
+}
+
+.accordian-tab.active .accordian-icon {
+  transform: rotate(180deg);
+}
+</style>
+
+<div class="product-accordian">
+  <div class="accordian-tab">
+    <h4>Product Description</h4>
+    <span class="accordian-icon">⌄</span>
+  </div>
+  <div class="accordian-content">
+    <div>{{ product.description }}</div>
+  </div>
+
+  <div class="accordian-tab">
+    <h4>Shipping</h4>
+    <span class="accordian-icon">⌄</span>
+  </div>
+  <div class="accordian-content">
+    <p>{{ settings.shipping_info }}</p>
+  </div>
+
+  <div class="accordian-tab">
+    <h4>Returns</h4>
+    <span class="accordian-icon">⌄</span>
+  </div>
+  <div class="accordian-content">
+    <p>{{ settings.returns_info }}</p>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.accordian-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.accordian-tab').forEach(t => {
+      if (t !== tab) {
+        t.classList.remove('active');
+      }
+    });
+
+    tab.classList.toggle('active');
+  });
+});
+</script>

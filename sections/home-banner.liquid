@@ -1,0 +1,209 @@
+{% schema %}
+{
+  "name": "Home Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "main_banner",
+      "label": "Main Banner Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_side_banners",
+      "label": "Show Side Banners",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "side_banner_1",
+      "label": "Side Banner 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "side_banner_2",
+      "label": "Side Banner 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_sub_banners",
+      "label": "Show Sub Banners",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "sub_banner_1",
+      "label": "Sub Banner 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "sub_banner_2",
+      "label": "Sub Banner 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "sub_banner_3",
+      "label": "Sub Banner 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "sub_banner_4",
+      "label": "Sub Banner 4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="home-banner">
+  <div class="banner-container">
+    <div class="main-banner">
+      {% if section.settings.main_banner != blank %}
+        <img src="{{ section.settings.main_banner | img_url: 'master' }}" alt="Main Banner">
+      {% endif %}
+    </div>
+
+    {% if section.settings.show_side_banners %}
+      <div class="side-banners">
+        {% if section.settings.side_banner_1 != blank %}
+          <div class="side-banner">
+            <img src="{{ section.settings.side_banner_1 | img_url: 'master' }}" alt="Side Banner 1">
+          </div>
+        {% endif %}
+        {% if section.settings.side_banner_2 != blank %}
+          <div class="side-banner">
+            <img src="{{ section.settings.side_banner_2 | img_url: 'master' }}" alt="Side Banner 2">
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if section.settings.show_sub_banners %}
+    <div class="sub-banners">
+      {% if section.settings.sub_banner_1 != blank %}
+        <div class="sub-banner"><img src="{{ section.settings.sub_banner_1 | img_url: 'master' }}" alt="Sub Banner 1"></div>
+      {% endif %}
+      {% if section.settings.sub_banner_2 != blank %}
+        <div class="sub-banner"><img src="{{ section.settings.sub_banner_2 | img_url: 'master' }}" alt="Sub Banner 2"></div>
+      {% endif %}
+      {% if section.settings.sub_banner_3 != blank %}
+        <div class="sub-banner"><img src="{{ section.settings.sub_banner_3 | img_url: 'master' }}" alt="Sub Banner 3"></div>
+      {% endif %}
+      {% if section.settings.sub_banner_4 != blank %}
+        <div class="sub-banner"><img src="{{ section.settings.sub_banner_4 | img_url: 'master' }}" alt="Sub Banner 4"></div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+<style>
+.home-banner {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.banner-container {
+  display: flex;
+  gap: 16px;
+  max-width: 1200px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.main-banner {
+  width: 65%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.main-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.side-banners {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.side-banner {
+  flex: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.side-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sub-banners {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 30px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.sub-banner {
+  width: calc(25% - 12px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+}
+
+.sub-banner img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  height: 100%;
+}
+
+/* ---------- Responsive Styles ---------- */
+@media (max-width: 768px) {
+  .banner-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .main-banner,
+  .side-banners {
+    width: 100%;
+  }
+
+  .side-banners {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 12px;
+    padding-bottom: 10px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .side-banner {
+    min-width: 60%;
+    scroll-snap-align: center;
+  }
+
+  .sub-banner {
+    width: 100%;
+  }
+}
+</style>
