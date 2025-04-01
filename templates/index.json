@@ -386,18 +386,6 @@
         "border_thickness": 0,
         "lazy": true
       }
-    },
-    "producttest_L7BqNW": {
-      "type": "producttest",
-      "settings": {
-        "collection": "fashion"
-      }
-    },
-    "pagefly_section_BECK8R": {
-      "type": "pagefly-section",
-      "settings": {
-        "section_id": "pf-bdaeb06b"
-      }
     }
   },
   "order": [
@@ -408,8 +396,6 @@
     "featured_collection",
     "featured_collection_NXNUpQ",
     "image_with_text_EFnXRT",
-    "ss_feature_1_EWQK8U",
-    "producttest_L7BqNW",
-    "pagefly_section_BECK8R"
+    "ss_feature_1_EWQK8U"
   ]
 }
