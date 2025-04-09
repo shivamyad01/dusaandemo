@@ -1,1 +1,341 @@
-<h1>Shivam Yadav</h1>
+{{ 'nws-pdp-cards.css' | asset_url | stylesheet_tag }}
+{% style %}
+  .nws-product-card {
+    {% if section.settings.slct-bg == 'gradient' %}background:{{ section.settings.section_background_gradient }};{% endif %}
+    {% if section.settings.slct-bg == 'solid' %}background:{{ section.settings.section-background }};{% endif %}
+  }
+    {% for block in section.blocks %}
+  .nws-pdp-pre-lbl-{{ forloop.index }} {
+      {% if block.settings.text_clr != blank %} color: {{ block.settings.text_clr }}; {% else %} color: #ffffff; {% endif %}
+      {% if block.settings.bg_clr != blank %} background: {{ block.settings.bg_clr }}; {% else %} background: #3c3c3b; {% endif %}
+  }
+  .nws-pdp-card-w-{{ forloop.index }} {
+    {% if block.settings.slct-bg == 'gradient' %}background:{{ block.settings.blck_background_gradient }};{% endif %}
+    {% if block.settings.slct-bg == 'solid' %}background:{{ block.settings.blck-background }};{% endif %}
+  }
+
+  {% endfor %}
+{% endstyle %}
+{%- assign product_form_id = 'product-form-id' | append: section.id -%}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<section
+  class="nws-product-card nws-same-padding{% if section.settings.custom_class != blank %}{{ section.settings.custom_class }}{% endif %}"
+>
+  <div class="nws-custom-container">
+    {% if section.settings.section_heading != blank %}
+      <h2 class="nws-section-heading">{{ section.settings.section_heading }}</h2>
+      {% if section.settings.section_text != blank %}
+        <div class="nws-section-desc">{{ section.settings.section_text }}</div>
+      {% endif %}
+    {% endif %}
+    <div class="nws-pdp-grid">
+      {% for block in section.blocks %}
+        {% assign mtp = block.settings.product %}
+        <div class="nws-pdp-card-w nws-pdp-card-w-{{ forloop.index }}">
+          <div class="nws-inner-padding">
+            {% if block.settings.pdp_pre_lbl != blank %}
+              <span class="nws-pdp-pre-lbl nws-pdp-pre-lbl-{{ forloop.index }}">{{ block.settings.pdp_pre_lbl }}</span>
+            {% endif %}
+            <h2 class="nws-pdp-title">{{ block.settings.product.title }}</h2>
+            <a href="{{ block.settings.product.url }}" class="nws-pdp-img-wrapper">
+              <img class="nws-pdp-img" src="{{ block.settings.product.featured_image | img_url: 'master' }}">
+            </a>
+            <div class="nws-pdp-body">
+              <div class="nws-pdp-price-group">
+                <sup class="nws-pdp-compare-price">
+                  {{- block.settings.product.compare_at_price | default: 0 | money -}}
+                </sup>
+                <ins class="nws-pdp-sale-price">
+                  {{- block.settings.product.price | money -}}
+                </ins>
+              </div>
+              <span class="nws-pdp-save">
+                Save
+                {{ mtp.compare_at_price_max | minus: mtp.price | times: 100 | divided_by: mtp.compare_at_price_max -}}
+                %
+              </span>
+              {% if block.settings.per_day != blank %}
+                <span class="nws-per-day-charge">{{ block.settings.per_day }}</span>
+              {% endif %}
+            </div>
+          </div>
+          <div class="nws-border-top nws-inner-padding">
+            {%- render 'buy-buttons',
+              block: block,
+              product: mtp,
+              product_form_id: product_form_id,
+              section_id: section.id,
+              show_pickup_availability: true
+            -%}
+            {% if block.settings.shiping_text != blank %}
+              <p class="nws-pdp-card-shipping-text">{{ block.settings.shiping_text }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+   "name": "Nws Product Card",
+   "settings": [
+     {
+      "type": "select",
+      "options": [
+        { "value": "gradient", "label": "Gradient" },
+        { "value": "solid", "label": "Background Color"}
+      ],
+      "id": "slct-bg",
+      "default": "solid",
+      "label": "Section Background Type"
+    },
+    {
+      "type": "color_background",
+      "label": "Section Background Gradient",
+      "id": "section_background_gradient"
+    },
+    {
+      "type": "color",
+      "id": "section-background",
+      "info": "Background",
+      "label": "Section Background Color"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "info": "Add section class (without.). Use spaces to add multiple classes",
+      "label": "Custom Class"
+    },
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "section_text",
+      "label": "Section Text"
+    }
+   ],
+   "blocks":[
+     {
+     "type":"gallery",
+     "name":"Add Product",
+     "settings":[
+       {
+          "type": "select",
+          "options": [
+            { "value": "gradient", "label": "Gradient" },
+            { "value": "solid", "label": "Background Color"}
+          ],
+        "id": "slct-bg",
+        "default": "solid",
+        "label": "Card Background Type"
+       },
+       {
+        "type": "color_background",
+        "label": "Card Background Gradient",
+        "id": "blck_background_gradient"
+       },
+       {
+        "type": "color",
+        "id": "blck-background",
+        "info": "Background",
+        "label": "Card Background Color"
+       },
+       {
+         "type": "product",
+         "id": "product",
+         "label": "Select Product"
+       },
+       {
+         "type": "text",
+         "id": "pdp_pre_lbl",
+         "label": "Product Pre Label"
+       },
+       {
+         "type": "text",
+         "id": "per_day",
+         "label": "Per Day Charge"
+       },
+       {
+         "type": "text",
+         "id": "shiping_text",
+         "label": "Shipping Text"
+       },
+       {
+         "type": "header",
+         "content": "Product Pre Label Styling"
+       },
+       {
+         "type": "color",
+         "id": "text_clr",
+         "label": "Text Color"
+       },
+       {
+         "type": "color",
+         "id": "bg_clr",
+         "label": "Background Color"
+       }
+       ]
+     }
+   ],
+   "presets": [
+     {
+       "name": "Nws Product Card",
+       "category": "Nws Custom Section"
+     }
+   ]
+ }
+{% endschema %}
+{% style %}
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;200;300;400;500;600;700;800;900&family=Barlow:wght@100;200;300;400;500;600;700;800;900&display=swap');
+.nws-pdp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+}
+.nws-pdp-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.nws-custom-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+    display: block;
+}
+.nws-section-heading {
+    font-size: 36px;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    line-height: 1;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0;
+    display: block;
+}
+.nws-section-desc {
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    width: 100%;
+    max-width: 600px;
+    margin: 12px auto 25px auto;
+    display: block
+}
+.nws-section-desc p {
+    margin-top: 0;
+    margin-bottom: 0;
+    display: block;
+}
+.nws-pdp-card-w {
+    width: 100%;
+    display: block;
+    border: 1px solid #000;
+    border-radius: 6px;
+}
+.nws-inner-padding {
+    padding: 20px;
+}
+.nws-pdp-pre-lbl {
+    font-size: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    line-height: normal;
+    text-transform: uppercase;
+    padding: 6px;
+    border-radius: 4px;
+    text-align: center;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    font-weight: 500;
+}
+.nws-pdp-title {
+    font-size: 22px;
+    text-align: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-family: Barlow Condensed,sans-serif;
+    line-height: 1;
+    font-weight: 600;
+}
+.nws-pdp-price-group {
+    font-size: 22px;
+    font-weight: 600;
+    font-family: Barlow Condensed,sans-serif;
+    text-align: center;
+    line-height: normal;
+}
+.nws-pdp-sale-price {
+    text-decoration: none;
+}
+.nws-pdp-compare-price {
+    font-size: 18px;
+    top: -0.3em;
+}
+.nws-border-top.nws-inner-padding {
+    border-top: 1px solid #000;
+}
+.nws-per-day-charge {
+    font-size: 18px;
+    font-family: Barlow Condensed,sans-serif;
+    background: #828282;
+    color: #fff;
+    font-weight: 400;
+    padding: 6px;
+    border-radius: 4px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    line-height: 1;
+    margin-top: 12px;
+}
+.nws-product-card button.product-form__submit:after {
+    display: none;
+}
+.nws-product-card button.product-form__submit {
+    border-radius: 4px;
+    background: #000;
+    border: 1px solid #000;
+}
+.nws-product-card button.product-form__submit:hover {
+    background: transparent;
+    color: #000;
+}
+.nws-pdp-card-shipping-text {
+    font-size: 18px;
+    font-family: Barlow Condensed,sans-serif;
+    text-align: center;
+    color: #000;
+    line-height: 1;
+    margin-top: 12px;
+    margin-bottom: 0;
+    display: block;
+}
+.nws-pdp-save {
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    padding: 4px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    width: fit-content;
+    margin: 4px auto auto;
+    line-height: 1;
+}
+@media screen and (max-width: 767px) {
+  .nws-pdp-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 600px) {
+  .nws-pdp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+{% endstyle %}

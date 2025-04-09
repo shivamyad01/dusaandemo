@@ -1,0 +1,210 @@
+{% schema %}
+{
+  "name": "Top Finds",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "product_collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "number",
+      "id": "products_limit",
+      "label": "Number of products to show",
+      "default": 10,
+   
+    }
+  ],
+  "presets": [
+    {
+      "name": "Top Finds"
+    }
+  ]
+}
+{% endschema %}
+
+
+  <!-- content -->
+
+<section class="top-finds-section">
+  <div class="top-finds-header">
+    <h2>Top Finds</h2>
+    <p>Explore our most loved products</p>
+  </div>
+
+  <div class="top-finds-grid">
+    {% assign collection = collections[section.settings.product_collection] %}
+    {% if collection and collection.products.size > 0 %}
+      {% for product in collection.products limit: section.settings.products_limit %}
+        <div class="product-card">
+          {% if product.tags contains 'bestseller' %}
+            <span class="bestseller-badge">🔥 Bestsellers</span>
+          {% endif %}
+
+          <a href="{{ product.url }}">
+            <div class="product-image-wrapper">
+             <img src="{{ product.featured_image | img_url: 'master' }}" alt="{{ product.title }}">
+
+            </div>
+          </a>
+
+          <div class="product-card-content">
+            <h3 class="product-title">{{ product.title }}</h3>
+            <div>
+              <span class="product-price">₹ {{ product.price | money_without_currency }}</span>
+              {% if product.compare_at_price > product.price %}
+                <span class="product-compare">₹ {{ product.compare_at_price | money_without_currency }}</span>
+                <span class="product-discount">
+                  {{ 100 | times: product.compare_at_price | minus: product.price | divided_by: product.compare_at_price }}% OFF
+                </span>
+              {% endif %}
+            </div>
+            <div class="product-emi">
+              or ₹{{ product.price | divided_by: 6 | money_without_currency }}/Month 🌍 <span>Buy on EMI ></span>
+            </div>
+          </div>
+
+          <div class="product-action">
+            🛒
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align:center;">No products found in this collection.</p>
+    {% endif %}
+  </div>
+
+</div>
+<style>.top-finds-section {
+  padding: 40px 0;
+  background-color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.top-finds-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.top-finds-header h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.top-finds-header p {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.top-finds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  padding: 0 20px;
+}
+
+.product-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-image-wrapper {
+  aspect-ratio: 1 / 1;
+  background-color: #f3f4f6;
+  overflow: hidden;
+}
+
+.product-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
+}
+
+.product-card-content {
+  padding: 12px 14px;
+}
+
+.product-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 6px;
+  line-height: 1.4em;
+  height: 2.8em;
+  overflow: hidden;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.product-compare {
+  text-decoration: line-through;
+  font-size: 13px;
+  color: #9ca3af;
+  margin-left: 6px;
+}
+
+.product-discount {
+  font-size: 13px;
+  color: #ec4899;
+  margin-left: 6px;
+  font-weight: 500;
+}
+
+.product-emi {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.product-emi span {
+  color: #6366f1;
+  font-weight: 500;
+}
+
+.bestseller-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #ef4444;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.product-action {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #6b7280;
+  transition: color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.product-action:hover {
+  color: #ef4444;
+}
+
+    
+</style>

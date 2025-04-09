@@ -1,0 +1,56 @@
+{% schema %}
+{
+  "name": "Categories Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "Category Name"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Category Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Categories Section",
+      "blocks": [
+        {
+          "type": "category"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="py-10 bg-[#eef6ea]">
+  <h2 class="text-center text-2xl font-bold text-green-800">Shop by categories</h2>
+  <div class="flex overflow-x-auto gap-4 p-6">
+    {% for block in section.blocks %}
+      <div class="min-w-[150px] md:min-w-[200px] p-4 rounded-lg bg-green-100 text-center">
+        <a href="{{ block.settings.link }}">
+          {% if block.settings.image %}
+            <img src="{{ block.settings.image | img_url: 'medium' }}" alt="{{ block.settings.title }}" class="mx-auto w-20 h-20">
+          {% endif %}
+          <p class="mt-2 font-semibold text-green-900">{{ block.settings.title }}</p>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>

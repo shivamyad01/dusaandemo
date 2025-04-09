@@ -1,1 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon icon-cart-empty" viewBox="0 0 40 40"><path fill="currentColor" fill-rule="evenodd" d="M15.75 11.8h-3.16l-.77 11.6a5 5 0 0 0 4.99 5.34h7.38a5 5 0 0 0 4.99-5.33L28.4 11.8zm0 1h-2.22l-.71 10.67a4 4 0 0 0 3.99 4.27h7.38a4 4 0 0 0 4-4.27l-.72-10.67h-2.22v.63a4.75 4.75 0 1 1-9.5 0zm8.5 0h-7.5v.63a3.75 3.75 0 1 0 7.5 0z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="31.534" height="22.873" viewBox="0 0 31.534 22.873" class="icon icon-cart icon-cart-empty" aria-hidden="true" focusable="false">
+  <g id="Group_17188" data-name="Group 17188" transform="translate(-1213.285 -23.24)">
+    <path id="Path_6308" data-name="Path 6308" d="M10.371,17.433a.824.824,0,0,1-.856-.788V10.1a.859.859,0,0,1,1.712,0v6.542a.824.824,0,0,1-.856.788" transform="translate(1221.532 20.201)" fill="#ac93a8" stroke="#fff" stroke-miterlimit="10" stroke-width="0.5"></path>
+    <path id="Path_6309" data-name="Path 6309" d="M14.362,14.032H7.257a.791.791,0,1,1,0-1.576h7.105a.791.791,0,1,1,0,1.576" transform="translate(1221.093 20.36)" fill="#ac93a8" stroke="#fff" stroke-miterlimit="10" stroke-width="0.5"></path>
+    <path id="Path_7562" data-name="Path 7562" d="M3,5.25V3H7.411L13.69,18.244H29.577L33.534,8.57,12.509,5.7" transform="translate(1210.785 20.741)" fill="none" stroke="#2d1d29" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
+    <ellipse id="Ellipse_860" data-name="Ellipse 860" cx="2.569" cy="2.448" rx="2.569" ry="2.448" transform="translate(1225.597 40.718)" fill="none" stroke="#2d1d29" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></ellipse>
+    <ellipse id="Ellipse_861" data-name="Ellipse 861" cx="2.569" cy="2.448" rx="2.569" ry="2.448" transform="translate(1233.977 40.718)" fill="none" stroke="#2d1d29" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></ellipse>
+  </g>
+</svg>

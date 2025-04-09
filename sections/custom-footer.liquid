@@ -1,0 +1,191 @@
+<footer>
+  <div class="wrapper">
+    <div class="new_footer">
+    <div class="container">
+      <div class="row">
+        {% for block in section.blocks %}
+        {% if block.type == "menu" %}
+        <div class="col-md-3">
+           {% if block.settings.menu_title != blank %}
+          <h2 class="menu_title">{{ block.settings.menu_title }}</h2>
+          {% endif %}
+          <ul>
+          {% for link in linklists[block.settings.Footer_menu].links %}
+          <li class="footer-link">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+          {% endfor %}  
+          </ul>
+        </div>
+        {% endif %}
+        
+        {% if block.type == "text" %}
+        <div class="col-md-3">
+           {% if block.settings.menu_title_text != blank %}
+          <h2 class="menu_title">{{ block.settings.menu_title_text }}</h2>
+          {% endif %}
+          <div class="f_content_box">
+            {% if block.settings.f_content_box != blank %}
+            <p>{{ block.settings.f_content_box }}</p>
+            {% endif %}
+            {% if block.settings.mail != blank %}
+            <a href="mailto:{{ block.settings.mail }}">{{ block.settings.mail }}</a>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+    </div>
+    {% if section.settings.copyright_text != blank %}
+      <div class="copyright_text">
+         <p class="copyright">{{ section.settings.copyright_text }}</p>
+      </div>
+       {% endif %}
+  </div>
+</footer>
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+		    {
+          "type": "textarea",
+          "id": "copyright_text",
+          "label": "copyright text"
+        }
+],
+"blocks": [
+  {
+  "type": "menu",
+  "name": "Footer menu",
+  "settings": [
+		    {
+          "type": "text",
+          "id": "menu_title",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "Footer_menu",
+          "label": "Menu"
+		    }  
+      ]
+    },
+	{
+    "type": "text",
+    "name": "Text",
+    "settings": [
+          {
+            "type": "text",
+            "id": "menu_title_text",
+            "label": "Heading"
+          },
+		      {
+            "type": "textarea",
+            "id": "f_content_box",
+            "label": "Text"
+          },
+		     {
+            "type": "text",
+            "id": "mail",
+            "label": "Email"
+          }
+        ]
+    }
+  ]
+  }
+{% endschema %}
+{% style %}
+    /*** main footer ***/
+footer {
+    background: #00833e;
+}
+footer .wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.new_footer {
+    padding: 60px 0;
+}
+.new_footer .row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.new_footer .row .col-md-3 {
+    width: 25%;
+    padding: 0 15px;
+}
+.new_footer .menu_title {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #fff;
+    position: relative;
+    display: inline-block;
+}
+.new_footer .menu_title::after {
+    position: absolute;
+    content: "";
+    width: 50%;
+    height: 1px;
+    bottom: -3px;
+    z-index: 999;
+    background: #fff;
+    left: 0;
+}
+.new_footer .f_content_box {
+    margin: 15px 0 0 0;
+}
+.new_footer .f_content_box p {
+    color: #fff;
+}
+.new_footer .f_content_box a {
+    color: #fff;
+}
+.new_footer ul {
+    margin: 15px 0 0 0;
+    list-style: none;
+}
+.new_footer ul .footer-link {
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+.new_footer ul .footer-link a {
+    color: #fff;
+}
+/*** copyright footer ***/
+.copyright_text {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 1px solid #fff;
+}
+.copyright_text .copyright {
+    margin: 0;
+    color: #fff;
+}
+
+@media screen and (min-width: 591px){
+footer .wrapper {
+    padding: 0 30px;
+}
+}
+@media only screen and (max-width: 992px){
+.new_footer .row .col-md-3 {
+    width: 50%;
+    margin-bottom: 20px;
+}
+}
+@media only screen and (max-width: 768px){
+.new_footer {
+    padding: 30px 0;
+    text-align: center;
+}
+.new_footer .row .col-md-3 {
+    width: 100%;
+}
+.new_footer ul .footer-link {
+    font-size: 14px;
+}
+}
+{% endstyle %}

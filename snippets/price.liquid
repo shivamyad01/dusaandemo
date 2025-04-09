@@ -104,9 +104,10 @@
           </span>
         {%- endunless -%}
         <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-        <span class="price-item price-item--sale price-item--last">
-          {{ money_price }}
-        </span>
+       <span class="price-item price-item--sale price-item--last text-xl font-bold text-red-600 bg-red-100 px-3 py-1 rounded-full shadow-md">
+  {{ money_price }}
+</span>
+
       </div>
       <small class="unit-price caption{% if product.selected_or_first_available_variant.unit_price_measurement == nil %} hidden{% endif %}">
         <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
@@ -125,7 +126,7 @@
     </div>
     {%- if show_badges -%}
       <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
-        {{ 'products.product.on_sale' | t }}
+       {{compare_at_price | minus: price | times: 100 | divided_by:  compare_at_price }}% OFF
       </span>
 
       <span class="badge price__badge-sold-out color-{{ settings.sold_out_badge_color_scheme }}">
@@ -134,3 +135,16 @@
     {%- endif -%}
   </div>
 {% endunless %}
+
+{% style %}
+  .price-item--sale {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #dc2626; /* Tailwind red-600 */
+  background-color: #fee2e2; /* Tailwind red-100 */
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+{% endstyle %}

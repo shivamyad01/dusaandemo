@@ -375,34 +375,6 @@
                       </price-per-item>
                     {%- endif -%}
                   </div>
-<style>
-  .product__media-wrapper {
-  position: relative;
-}
-
-.media-wrapper-inner {
-  position: relative;
-}
-
-.best-seller-badge {
-  position: absolute;
-  top: 16px;
-  right: 32px;
-  background-color: #F26666; /* dusaan-style red */
-  color: #fff;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 999px;
-  text-transform: uppercase;
-  z-index: 3;
-  pointer-events: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  font-family: 'Inter', sans-serif;
-}
-
-
-</style>
 
 
 
@@ -519,6 +491,7 @@
                   section_id: section.id,
                   show_pickup_availability: true
                 -%}
+                {% render 'offer_card' %}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
@@ -2365,3 +2338,35 @@
   ]
 }
 {% endschema %}
+
+
+
+
+<style>
+  .product__media-wrapper {
+  position: relative;
+}
+
+.media-wrapper-inner {
+  position: relative;
+}
+
+.best-seller-badge {
+  position: absolute;
+  top: 16px;
+  right: 32px;
+  background-color: #F26666; /* dusaan-style red */
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  z-index: 9;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-family: 'Inter', sans-serif;
+}
+
+
+</style>

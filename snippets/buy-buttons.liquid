@@ -6,9 +6,6 @@
   - product_form_id: {String} product form id.
   - section_id: {String} id of section to which this snippet belongs.
   - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
-
-  Usage:
-  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
 {% endcomment %}
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
@@ -74,7 +71,7 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+            class="product-form__submit button button--full-width custom-attractive-button {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
               or product.selected_or_first_available_variant == null
@@ -82,7 +79,7 @@
               disabled
             {% endif %}
           >
-            <span>
+            <span class="button-label">
               {%- if product.selected_or_first_available_variant == null -%}
                 {{ 'products.product.unavailable' | t }}
               {%- elsif product.selected_or_first_available_variant.available == false or quantity_rule_soldout -%}
@@ -149,3 +146,34 @@
     <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
 </div>
+<style>
+  .custom-attractive-button {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: #fff !important;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(255, 126, 95, 0.4);
+  transition: all 0.3s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.custom-attractive-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(255, 126, 95, 0.6);
+  cursor: pointer;
+}
+
+.custom-attractive-button:disabled {
+  background: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+</style>
