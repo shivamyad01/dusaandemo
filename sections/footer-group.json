@@ -13,6 +13,43 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "image_AaMUPL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/EPIC_WEB_SERVICE_RGB-removebg-preview-e1619452493779.png",
+            "image_width": 100,
+            "alignment": ""
+          }
+        },
+        "link_list_9dDHx4": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "main-menu"
+          }
+        },
+        "link_list_4tN4dk": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "main-menu"
+          }
+        },
+        "link_list_npi9gT": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Quick links",
+            "menu": "main-menu"
+          }
+        }
+      },
+      "block_order": [
+        "image_AaMUPL",
+        "link_list_9dDHx4",
+        "link_list_4tN4dk",
+        "link_list_npi9gT"
+      ],
       "settings": {
         "color_scheme": "scheme-3",
         "newsletter_enable": false,
