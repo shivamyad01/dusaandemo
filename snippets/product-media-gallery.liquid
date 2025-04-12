@@ -48,6 +48,7 @@
   {% if section.settings.enable_sticky_info %}
     class="product__column-sticky"
   {% endif %}
+  
   aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
   data-desktop-layout="{{ section.settings.gallery_layout }}"
 >
@@ -63,27 +64,33 @@
     >
       {%- if product.selected_or_first_available_variant.featured_media != null -%}
         {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
-        <li
-          id="Slide-{{ section.id }}-{{ featured_media.id }}"
-          class="product__media-item grid__item slider__slide is-active{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
-          data-media-id="{{ section.id }}-{{ featured_media.id }}"
-        >
-          {%- assign media_position = 1 -%}
-          {% render 'product-thumbnail',
-            media: featured_media,
-            media_count: media_count,
-            position: media_position,
-            desktop_layout: section.settings.gallery_layout,
-            mobile_layout: section.settings.mobile_thumbnails,
-            loop: section.settings.enable_video_looping,
-            modal_id: section.id,
-            xr_button: true,
-            media_width: media_width,
-            media_fit: section.settings.media_fit,
-            constrain_to_viewport: section.settings.constrain_to_viewport,
-            lazy_load: false
-          %}
-        </li>
+      <li
+  id="Slide-{{ section.id }}-{{ featured_media.id }}"
+  class="product__media-item grid__item slider__slide is-active{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
+  data-media-id="{{ section.id }}-{{ featured_media.id }}"
+>
+  <div class="media-badge-wrapper" style="position: relative;">
+    {% if product.metafields.custom.best_seller == true %}
+      <div class="best-seller-badge">Best Seller</div>
+    {% endif %}
+
+    {% render 'product-thumbnail',
+      media: featured_media,
+      media_count: media_count,
+      position: media_position,
+      desktop_layout: section.settings.gallery_layout,
+      mobile_layout: section.settings.mobile_thumbnails,
+      loop: section.settings.enable_video_looping,
+      modal_id: section.id,
+      xr_button: true,
+      media_width: media_width,
+      media_fit: section.settings.media_fit,
+      constrain_to_viewport: section.settings.constrain_to_viewport,
+      lazy_load: false
+    %}
+  </div>
+</li>
+
       {%- endif -%}
       {%- for media in product.media -%}
         {% if media_position >= limit
@@ -330,3 +337,19 @@
     </slider-component>
   {%- endif -%}
 </media-gallery>
+
+<style>.best-seller-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ffc107;
+  color: #000;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  z-index: 20;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+</style>

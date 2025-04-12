@@ -76,12 +76,14 @@
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
      <div class="grid__item product__media-wrapper">
-  {% if product.metafields.custom.best_seller == true %}
+      {% comment %} {% if product.metafields.custom.best_seller == true %}
     <div class="best-seller-badge">Best Seller</div>
-  {% endif %}
-  {% render 'product-media-gallery', variant_images: variant_images %}
+  {% endif %} {% endcomment %}
+       {% render 'product-media-gallery', variant_images: variant_images %}
+ 
+ 
 </div>
-
+ 
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
           id="ProductInfo-{{ section.id }}"
@@ -98,7 +100,9 @@
                   class="product__text inline-richtext{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}"
                   {{ block.shopify_attributes }}
                 >
-                  {{- block.settings.text -}}
+                {% if product.metafields.custom.best_seller == true %}
+    <div class="best-seller">Best Seller</div>
+  {% endif %}
                 </p>
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
@@ -2342,31 +2346,19 @@
 
 
 
-<style>
-  .product__media-wrapper {
-  position: relative;
-}
-
-.media-wrapper-inner {
-  position: relative;
-}
-
-.best-seller-badge {
-  position: absolute;
-  top: 16px;
-  right: 32px;
-  background-color: #F26666; /* dusaan-style red */
+{% stylesheet %}
+  .best-seller {
+  display: inline-block;
+  background-color: #ff9800; /* Bright orange */
   color: #fff;
+  padding: 6px 12px;
   font-size: 12px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 999px;
+  font-weight: bold;
+  border-radius: 4px;
   text-transform: uppercase;
-  z-index: 9;
-  pointer-events: none;
+  letter-spacing: 0.5px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  font-family: 'Inter', sans-serif;
+  margin-bottom: 8px;
 }
 
-
-</style>
+{% endstylesheet %}

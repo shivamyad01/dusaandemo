@@ -165,6 +165,9 @@
                     style="--animation-order: {{ forloop.index }};"
                   {% endif %}
                 >
+            {% if product.metafields.custom.best_seller == true %}
+    <div class="best-seller-badge">Best Seller</div>
+  {% endif %}
                   {% render 'card-product',
                     card_product: product,
                     media_aspect_ratio: section.settings.image_ratio,
@@ -415,3 +418,34 @@
   ]
 }
 {% endschema %}
+
+
+
+<style>
+  .product__media-wrapper {
+  position: relative;
+}
+
+.media-wrapper-inner {
+  position: relative;
+}
+
+.best-seller-badge {
+  position: absolute;
+  top: 16px;
+  right: 32px;
+  background-color: #F26666; /* dusaan-style red */
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  z-index: 9;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-family: 'Inter', sans-serif;
+}
+
+
+</style>
