@@ -105,6 +105,12 @@
         "padding_bottom": 12
       }
     },
+    "stickyaddtocart_UPBhaG": {
+      "type": "stickyaddtocart",
+      "settings": {
+        "show_atc_threshold": 50
+      }
+    },
     "1744368242671a2ac7": {
       "type": "apps",
       "blocks": {
@@ -232,6 +238,7 @@
   },
   "order": [
     "main",
+    "stickyaddtocart_UPBhaG",
     "1744368242671a2ac7",
     "related-products",
     "ss_feature_1_GQthHp"
